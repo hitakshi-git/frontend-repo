@@ -1,46 +1,33 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+import './App.css';
+
+function App() {
+  return (
+    <div className="app">
+
+      {/* Navbar */}
+      <header className="navbar">
+        <h1>My Web App</h1>
+      </header>
+
+      {/* Main Content */}
+      <main className="container">
+        <div className="card">
+          <h2>Welcome 👋</h2>
+          <p>Your React app is successfully deployed on Azure.</p>
+
+          <button onClick={() => alert("App is working!")}>
+            Get Started
+          </button>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="footer">
+        © 2026 My Web App
+      </footer>
+
+    </div>
+  );
 }
 
-.navbar {
-  background: #0078d4;
-  color: white;
-  padding: 15px;
-  font-size: 20px;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-}
-
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-  text-align: center;
-}
-
-button {
-  background: #0078d4;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #005fa3;
-}
-
-.footer {
-  text-align: center;
-  padding: 10px;
-  background: #ddd;
-}
+export default App;
