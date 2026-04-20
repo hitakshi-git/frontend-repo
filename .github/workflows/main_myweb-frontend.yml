@@ -1,55 +1,32 @@
-name: Build and deploy Node.js app to Azure Web App - myweb-frontend
+name: Build and deploy React app to Azure
 
 on:
-push:
-branches:
-- main
-workflow_dispatch:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-build:
-runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
-steps:
-  - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-  - name: Set up Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '18'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
 
-  - name: Install dependencies
-    run: npm install
+      - name: Install dependencies
+        run: npm install
 
-  - name: Build React app
-    run: npm run build
+      - name: Build React app
+        run: npm run build
 
-  - name: Upload build folder
-    uses: actions/upload-artifact@v4
-    with:
-      name: react-build
-      path: build
-
-deploy:
-runs-on: ubuntu-latest
-needs: build
-
-steps:
-  - name: Download build folder
-    uses: actions/download-artifact@v4
-    with:
-      name: react-build
-
-  - name: Login to Azure
-    uses: azure/login@v2
-    with:
-      client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F20AA2649F6248EC8578D6A6CECCE846 }}
-      tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2032FE12BD784409844988A42CA84EB5 }}
-      subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2BFF1C43DABD4258BB3A237EFC648ED3 }}
-
-  - name: Deploy to Azure Web App
-    uses: azure/webapps-deploy@v3
-    with:
-      app-name: 'myweb-frontend'
-      slot-name: 'Production'
-      package: .
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: myweb-frontend
+          slot-name: Production
+          package: build
